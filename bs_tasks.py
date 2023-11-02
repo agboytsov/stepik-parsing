@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import time
 
 # with open('index/index.html', 'r', encoding='utf-8') as file:
 #     soup2 = BeautifulSoup(file, 'lxml')
@@ -413,12 +414,216 @@ html ='''<!DOCTYPE html>
 # print(sum(all_nums))
 
 
+#
+# url = 'https://parsinger.ru/table/4/index.html'
+# r = requests.get(url)
+# soup = BeautifulSoup(r.text, 'lxml')
+# table = soup.find('table')
+# res = []
+# # Извлекаем все строки таблицы
+# rows = table.find_all('tr')
+# for row in rows[1:]:
+#     b = row.find_all('td', 'green')  #1
+#     b = row.select('.green')  #2
+#     print(b)
+#     for i in b:
+#         print(i.text)
+#     lst = [float(i.text) for i in b]
+#     res.extend(lst)
+#
+# print(sum(res))
 
-url = 'https://parsinger.ru/table/3/index.html'
-r = requests.get(url)
-soup = BeautifulSoup(r.text, 'lxml')
-table = soup.find('table')
 
-# Извлекаем все строки таблицы
-rows = table.find_all('tr')[1:]
-bold =
+#
+# url = 'https://parsinger.ru/table/5/index.html'
+# r = requests.get(url)
+# soup = BeautifulSoup(r.text, 'lxml')
+# table = soup.find('table')
+# res = []
+# # Извлекаем все строки таблицы
+# rows = table.find_all('tr')
+# for row in rows[1:]:
+#     orange = row.select('.orange')[0]  #2
+#     blue = row.find_all('td')[-1]
+#     res.append(float(orange.text) * int(blue.text))
+#
+#
+# print(sum(res))
+
+
+# url = 'https://parsinger.ru/table/5/index.html'
+# r = requests.get(url)
+# soup = BeautifulSoup(r.text, 'lxml')
+# table = soup.find('table')
+#
+# # Извлекаем все строки таблицы
+# rows = table.find_all('tr')
+# names = table.find_all('th')
+# res = {k.text:0 for k in names}
+# for row in rows[1:]:
+#     columns = row.find_all('td')
+#     print(columns)
+#     for i, k in enumerate(res):
+#         res[k] += float(columns[i].text)
+#
+# for k, v in res.items():
+#     res[k] = round(v, 3)
+#
+# print(res)
+
+
+# url = 'https://parsinger.ru/4.8/7/index.html'
+# r = requests.get(url)
+# soup = BeautifulSoup(r.text, 'lxml')
+# tables = soup.find_all('table')
+# total = 0
+# for table in tables:
+#     tds = table.find_all('td')
+#     sm = sum([int(i.text) for i in tds if int(i.text) % 3 == 0])
+#     total += sm
+#     print(total)
+
+# start = time.time()
+# url = 'https://parsinger.ru/4.8/8/index.html'
+# r = requests.get(url)
+# soup = BeautifulSoup(r.text, 'lxml')
+# table = soup.find('table')
+# res = []
+# th = table.find_all()
+# for t in th:
+#     if t.has_attr('colspan') and len(t.find_all()) == 0:
+#         res.append(int(t.text))
+# print(sum(res))
+# print(time.time() - start)
+# start = time.time()
+# r = requests.get('https://parsinger.ru/4.8/8/index.html')
+# s = BeautifulSoup(r.text, 'html.parser')
+#
+# print(sum([int(i.text) for i in s.select('table td [colspan]')]))
+# print(time.time() - start)
+
+# import json
+# import copy
+#
+# url = 'https://parsinger.ru/4.8/6/index.html'
+# r = requests.get(url)
+# r.encoding = 'UTF-8'
+# soup = BeautifulSoup(r.text, 'lxml')
+# table = soup.find('table')
+# names = table.find_all('th')
+# dct = {k.text:0 for k in names}
+# res = []
+#
+# rows = table.find_all('tr')
+# for row in rows[1:]:
+#     temp_dct = {}
+#     columns = row.find_all('td')
+#     for i, k in enumerate(dct):
+#         if columns[i].text.isdigit():
+#             temp_dct[k] = int(columns[i].text)
+#         else:
+#             temp_dct[k] = columns[i].text
+#
+#     #print(temp_dct['Стоимость авто'] < 4_000_000, dct['Стоимость авто'], dct['Год выпуска'] > 2004, dct['Год выпуска'],dct['Тип двигателя'] == 'Бензиновый')
+#     if temp_dct['Стоимость авто'] < 4_000_000 and temp_dct['Год выпуска'] > 2004 and temp_dct['Тип двигателя'] == 'Бензиновый':
+#         res_dct = {
+#             'Марка Авто': temp_dct['Марка Авто'],
+#             'Год выпуска': temp_dct['Год выпуска'],
+#             'Тип двигателя': temp_dct['Тип двигателя'],
+#             'Стоимость авто': temp_dct['Стоимость авто']
+#         }
+#         res.append(res_dct)
+#
+# sorted_cars = res
+# res = json.dumps(sorted(sorted_cars, key=lambda x: x["Стоимость авто"]), indent=4, ensure_ascii=False)
+# print(res)
+
+
+import csv
+import requests
+from bs4 import BeautifulSoup
+
+# # 1 ------------------------------------------------------
+# with open('hdd.csv', 'w', encoding='utf-8-sig', newline='') as file:
+#     writer = csv.writer(file, delimiter=';')
+#     writer.writerow([
+#         'Наименование', 'Бренд', 'Форм-фактор', 'Ёмкость', 'Объем буферной памяти', 'Цена'])
+# # 1 ------------------------------------------------------
+#
+# # 2 ------------------------------------------------------
+# url = 'https://parsinger.ru/html/index4_page_'
+#
+# for i in range(1,5):
+#     search = f'{url}{i}.html'
+#     response = requests.get(url=search)
+#     response.encoding = 'utf-8'
+#     soup = BeautifulSoup(response.text, 'lxml')
+#
+# # 2 ------------------------------------------------------
+#
+# # 3 ------------------------------------------------------
+# # Извлекаем имена товаров и убираем лишние пробелы
+#     name = [x.text.strip() for x in soup.find_all('a', class_='name_item')]
+#
+#     # Извлекаем описание товаров и разбиваем на строки
+#     description = [x.text.split('\n') for x in soup.find_all('div', class_='description')]
+#
+#     # Извлекаем цены товаров
+#     price = [x.text for x in soup.find_all('p', class_='price')]
+# # 3 ------------------------------------------------------
+#
+#
+# # 4------------------------------------------------------
+# # Открываем файл для дополнительной записи данных
+#     with open('hdd.csv', 'a', encoding='utf-8-sig', newline='') as file:
+#         writer = csv.writer(file, delimiter=';')
+#         for item, price, descr in zip(name, price, description):
+#
+#             # Формируем строку для записи
+#             flatten = item, *[x.split(':')[1].strip() for x in descr if x], price
+#             print(flatten)
+#             writer.writerow(flatten)
+#
+# print('Файл res.csv создан')
+
+
+# articles = []
+# root = 'https://parsinger.ru/html/'
+#
+#
+# for i in range(1, 5):
+#     url = f'http://parsinger.ru/html/index1_page_{i}.html'
+#     r = requests.get(url)
+#     r.encoding = 'UTF-8'
+#     soup = BeautifulSoup(r.text, 'lxml')
+#
+#     for x in soup.find_all('div', 'sale_button'):
+#         href = root + x.find('a')['href']
+#         r = requests.get(href)
+#         r.encoding = 'utf-8'
+#         s = BeautifulSoup(r.text, 'lxml')
+#         res = {
+#             'Наименование': s.find('p', id='p_header').text,
+#             'Артикул': int(s.find('p', class_='article').text.split()[-1]),
+#             'Бренд':  s.find('li', id='brand').text.split(': ')[-1],
+#             'Модель': s.find('li', id='model').text.split(': ')[-1],
+#             'Тип': s.find('li', id='type').text.split(': ')[-1],
+#             'Технология экрана': s.find('li', id='display').text.split(': ')[-1],
+#             'Материал корпуса' : s.find('li', id='material_frame').text.split(': ')[-1],
+#             'Материал браслета': s.find('li', id='material_bracer').text.split(': ')[-1],
+#             'Размер': s.find('li', id='size').text.split(': ')[-1],
+#             'Сайт производителя': s.find('li', id='site').text.split(': ')[-1],
+#             'Наличие': int(s.find('span', id='in_stock').text.split(': ')[-1]),
+#             'Цена': s.find('span', id='price').text.split(': ')[-1],
+#             'Старая цена': s.find('span', id='old_price').text.split(': ')[-1],
+#             'Ссылка на карточку с товаром': href
+#         }
+#         articles.append(res)
+# fieldnames = [*articles[0].keys()]
+# print(fieldnames)
+# with open('all_stock.csv', 'w', encoding='UTF-8', newline='') as file:
+#     writer = csv.DictWriter(file, delimiter=";", fieldnames=fieldnames)
+#     writer.writeheader()
+#     for row in articles:
+#         writer.writerow(row)
+#     print('ok!')
