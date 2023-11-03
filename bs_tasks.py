@@ -627,3 +627,28 @@ from bs4 import BeautifulSoup
 #     for row in articles:
 #         writer.writerow(row)
 #     print('ok!')
+
+
+# import requests, csv
+# from bs4 import BeautifulSoup
+#
+# all_items_list = []
+# for category in range(1, 6):
+#     for page in range(1, 5):
+#         URL = f'https://parsinger.ru/html/index{category}_page_{page}.html'
+#         response = requests.get(url=URL)
+#         response.encoding = 'utf-8'
+#         soup = BeautifulSoup(response.text, 'lxml')
+#
+#         name = [x.text.strip() for x in soup.find_all('a', class_='name_item')]
+#         description = [x.text.split('\n') for x in soup.find_all('div', class_='description')]
+#         price = [x.text for x in soup.find_all('p', class_='price')]
+#
+#         for item, price, descr in zip(name, price, description):
+#             flatten = item, *[x.split(':')[1].strip() for x in descr if x], price
+#             all_items_list.append(flatten)
+#
+# with open('all_items.csv', 'w', encoding='UTF-8', newline='') as file:
+#     writer = csv.writer(file, delimiter=';')
+#     writer.writerows(all_items_list)
+
